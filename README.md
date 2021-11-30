@@ -4,6 +4,8 @@ A simple to use Telegram Advent Calendar
 
 <img src="screenshots/screenshot.png" />
 
+Upload 24 photos to the bot, and then have the bot send one photo every day in the morning as the advent calendar.
+
 ## Installation
 
 ```
