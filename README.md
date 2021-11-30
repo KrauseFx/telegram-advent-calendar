@@ -2,6 +2,8 @@
 
 A simple to use Telegram Advent Calendar
 
+<img src="screenshots/screenshot.png" />
+
 ## Installation
 
 ```
