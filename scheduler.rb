@@ -12,11 +12,10 @@ end
   Advent::Database.database[:groups].exclude(targetToPostId: nil).each do |group|
     todays_photo = Advent::Database.database[:photos].where(group_id: group[:id]).order(:id).to_a[day_to_use - 1]
 
-    bot.api.send_message(chat_id: group[:targetToPostId], text: "🕯 #{day_to_use}. Dezember 2021")
+    bot.api.send_message(chat_id: group[:targetToPostId], text: "🕯 #{day_to_use}. Dezember #{Date.today.year}")
     bot.api.send_photo(
       chat_id: group[:targetToPostId], 
       photo: todays_photo[:file_id]
     )
   end
 end
-
