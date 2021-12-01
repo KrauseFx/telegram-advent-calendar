@@ -40,6 +40,14 @@ If the bot tells you to choose a group, just run `/group [name]` again to select
 
 ## Server usage
 
+### Locally
+
 ```
 bundle exec ruby advent.rb
 ```
+
+### Production
+
+All info to run this in production is already in `./Procfile`. 
+
+Additionally, you have to setup a scheduler, than runs `bundle exec ruby scheduler.rb` every day in the morning.
