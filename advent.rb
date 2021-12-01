@@ -14,7 +14,7 @@ module Advent
 
           if Array(message.photo).count > 0
             if current_mapping[message.from.id].nil?
-              bot.api.send_message(chat_id: message.chat.id, text: "Please write /group [name] to choose the group")
+              bot.api.send_message(chat_id: message.chat.id, text: "Please write /group [name] to choose the group, then upload the photo again")
             else
               Database.database[:photos].insert(
                 group_id: current_mapping[message.from.id],
@@ -26,7 +26,18 @@ module Advent
               bot.api.send_message(chat_id: message.chat.id, text: "Successfully stored image")
             end
           elsif message.video
-            # TODO: implement video support
+            if current_mapping[message.from.id].nil?
+              bot.api.send_message(chat_id: message.chat.id, text: "Please write /group [name] to choose the group, then upload the video again")
+            else
+              Database.database[:photos].insert(
+                group_id: current_mapping[message.from.id],
+                telegramUserId: message.from.id,
+                telegramUser: message.from.username,
+                file_id: message.video.file_id,
+                type: "video"
+              )
+              bot.api.send_message(chat_id: message.chat.id, text: "Successfully stored video")
+            end
           elsif message.text.to_s.length > 0
             case message.text
             when '/start'
@@ -70,7 +81,7 @@ module Advent
               bot.api.send_message(chat_id: message.chat.id, text: "Success, all photos you drag & drop now, will be stored for this group '#{group_name}'")
               bot.api.send_message(chat_id: message.chat.id, text: "To then start sending messages to the group, run /connect '#{group_name}'")
             else
-              bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I did not understand you")
+              # bot.api.send_message(chat_id: message.chat.id, text: "Sorry #{message.from.first_name}, I did not understand you")
             end
           end
         end
